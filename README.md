@@ -4,7 +4,7 @@ Aseprite scripts to export layers as individual sprites.
 ![Demo GIF](resources/demo.gif)
 
 # How to install
-Copy the file `export-each-layers.lua` from this repository to the Aseprite's scripts folder.
+Copy the file `export-layers.lua` from this repository to the Aseprite's scripts folder.
 
 To access the scripts folder, go in Aseprite's menu then in `File -> Scripts -> Open Scripts Folder`.
 
