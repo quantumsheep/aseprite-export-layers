@@ -1,2 +1,4 @@
-# aseprite-export-individual
-Aseprite scripts to export layers as individual sprites
+# Aseprite: "Export Individual"
+Aseprite scripts to export layers as individual sprites.
+
+![Demo GIF](demo.gif)
