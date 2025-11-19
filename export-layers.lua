@@ -4,25 +4,13 @@ if not spr then
     return
 end
 
---- Ensure sprite is saved on disk
-local function ensureSpriteOnDisk(sprite)
-    if sprite.filename ~= "" and sprite.filename ~= nil then
-        return true
-    end
-
-    app.alert("Sprite must be saved before exporting layers.")
-    app.command.SaveFileAs()
-
-    return sprite.filename ~= "" and sprite.filename ~= nil
-end
-
-if not ensureSpriteOnDisk(spr) then
-    return
-end
-
 --- Split full path into directory, name, extension
 ---@param filepath string
 local function splitPath(filepath)
+    if filepath == nil then
+        return "", "sprite", "png"
+    end
+
     -- Try: dir + name + .ext
     local dir, name, ext = filepath:match("^(.-)([^/\\]+)%.([^%.\\/]*)$")
     if not dir then
@@ -33,6 +21,23 @@ local function splitPath(filepath)
 end
 
 local spr_path, spr_title, spr_ext = splitPath(spr.filename)
+
+--- Ensure sprite is saved on disk
+local function ensureSpriteOnDisk(sprite)
+    if spr_path ~= "" and spr_path ~= nil and spr_title ~= "" and spr_title ~= nil then
+        return true
+    end
+
+    app.alert("Sprite must be saved before exporting layers.")
+    app.command.SaveFileAs()
+
+    spr_path, spr_title, spr_ext = splitPath(spr.filename)
+    return spr_path ~= "" and spr_path ~= nil and spr_title ~= "" and spr_title ~= nil
+end
+
+if not ensureSpriteOnDisk(spr) then
+    return
+end
 
 -- Build dialog
 local dlg = Dialog {
