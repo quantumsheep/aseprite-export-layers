@@ -144,7 +144,7 @@ for _, layer in ipairs(exportLayers) do
         ui = false,
         type = SpriteSheetType.HORIZONTAL,
         textureFilename = fullpath(layer),
-        layer = layer,
+        layer = layer.name,
         listLayers = false,
         listTags = false,
         listSlices = false,
