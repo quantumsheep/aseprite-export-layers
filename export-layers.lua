@@ -49,6 +49,17 @@ dlg:file{
     filename = spr_path .. spr_title .. ".png",
     filetypes = {"png", "jpg", "jpeg"}
 }
+dlg:entry{
+    id = "separator",
+    label = "Layer name separator:",
+    text = "-"
+}
+dlg:combobox{
+    id = "case",
+    label = "Filename case:",
+    option = "Original",
+    options = {"Original", "UPPERCASE", "lowercase"}
+}
 dlg:check{
     id = "trim",
     label = "Trim:",
@@ -88,15 +99,22 @@ end
 --- Sanitize layer name so it can be used as a filename
 ---@param layerName string
 local function sanitizeName(layerName)
-    -- Replace forbidden filename chars and collapse whitespace
+    -- Replace forbidden filename chars, collapse whitespace and apply case option
     layerName = layerName:gsub('[\\/:*?"<>|]', "_")
     layerName = layerName:gsub("%s+", "_")
+
+    if data.case == "UPPERCASE" then
+        layerName = layerName:upper()
+    elseif data.case == "lowercase" then
+        layerName = layerName:lower()
+    end
+
     return layerName
 end
 
 --- Get full path for layer
 local function fullpath(layer)
-    return path .. baseName .. "-" .. sanitizeName(layer.name) .. "." .. extension
+    return path .. baseName .. data.separator .. sanitizeName(layer.name) .. "." .. extension
 end
 
 -- Collect layers according to options
